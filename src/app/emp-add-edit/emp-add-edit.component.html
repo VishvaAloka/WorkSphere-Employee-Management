@@ -1,0 +1,100 @@
+<!-- HTML Template -->
+<div class="dialog-container">
+  <div mat-dialog-title class="dialog-title">
+    <mat-icon class="title-icon" [class.update]="data">{{ data ? 'edit' : 'person_add' }}</mat-icon>
+    <h2>{{ data ? '✏️ Update Employee Information' : '➕ Add New Employee' }}</h2>
+  </div>
+
+  <form [formGroup]="empForm" (ngSubmit)="onFormSubmit()" class="employee-form">
+    <div mat-dialog-content class="form-content">
+      <!-- First Row: Names -->
+      <div class="form-row">
+        <mat-form-field appearance="outline" class="form-field">
+          <mat-label>First Name</mat-label>
+          <input matInput placeholder="John" formControlName="firstName" />
+          <mat-icon matPrefix class="input-icon">person</mat-icon>
+        </mat-form-field>
+        <mat-form-field appearance="outline" class="form-field">
+          <mat-label>Last Name</mat-label>
+          <input matInput placeholder="Doe" formControlName="lastName" />
+          <mat-icon matPrefix class="input-icon">person</mat-icon>
+        </mat-form-field>
+      </div>
+
+      <!-- Second Row: Email & DOB -->
+      <div class="form-row">
+        <mat-form-field appearance="outline" class="form-field">
+          <mat-label>Email</mat-label>
+          <input matInput type="email" placeholder="john.doe@example.com" formControlName="email" />
+          <mat-icon matPrefix class="input-icon">email</mat-icon>
+        </mat-form-field>
+        <mat-form-field appearance="outline" class="form-field">
+          <mat-label>Date of Birth</mat-label>
+          <input matInput [matDatepicker]="picker" formControlName="dob" />
+          <mat-hint>MM/DD/YYYY</mat-hint>
+          <mat-icon matPrefix class="input-icon">calendar_today</mat-icon>
+          <mat-datepicker-toggle matIconSuffix [for]="picker"></mat-datepicker-toggle>
+          <mat-datepicker #picker></mat-datepicker>
+        </mat-form-field>
+      </div>
+
+      <!-- Gender Radio Group -->
+      <div class="gender-section">
+        <mat-label class="section-label">
+          <mat-icon class="section-icon">wc</mat-icon>
+          Gender
+        </mat-label>
+        <mat-radio-group formControlName="gender" class="radio-group">
+          <mat-radio-button value="male">Male</mat-radio-button>
+          <mat-radio-button value="female">Female</mat-radio-button>
+          <mat-radio-button value="other">Other</mat-radio-button>
+        </mat-radio-group>
+      </div>
+
+      <!-- Third Row: Employee Type & Designation -->
+      <div class="form-row">
+        <mat-form-field appearance="outline" class="form-field">
+          <mat-label>Employee Type</mat-label>
+          <mat-select formControlName="employeeType">
+            <mat-option *ngFor="let val of employeeType" [value]="val">
+              {{ val }}
+            </mat-option>
+          </mat-select>
+          <mat-icon matPrefix class="input-icon">badge</mat-icon>
+        </mat-form-field>
+        <mat-form-field appearance="outline" class="form-field">
+          <mat-label>Designation</mat-label>
+          <input matInput placeholder="Manager" formControlName="designation" />
+          <mat-icon matPrefix class="input-icon">work</mat-icon>
+        </mat-form-field>
+      </div>
+
+      <!-- Fourth Row: Experience & Salary -->
+      <div class="form-row">
+        <mat-form-field appearance="outline" class="form-field">
+          <mat-label>Years of Experience</mat-label>
+          <input matInput type="number" placeholder="5" formControlName="yearsOfExperience" />
+          <mat-icon matPrefix class="input-icon">history</mat-icon>
+        </mat-form-field>
+        <mat-form-field appearance="outline" class="form-field">
+          <mat-label>Expected Salary</mat-label>
+          <input matInput type="number" placeholder="50000" formControlName="expectedSalary" />
+          <mat-icon matPrefix class="input-icon">attach_money</mat-icon>
+          <mat-hint>Lankan Rupees</mat-hint>
+        </mat-form-field>
+      </div>
+    </div>
+
+    <!-- Action Buttons -->
+    <div mat-dialog-actions class="dialog-actions">
+      <button mat-raised-button type="button" [mat-dialog-close]="false" class="btn-cancel">
+        <mat-icon class="btn-icon">close</mat-icon>
+        Cancel
+      </button>
+      <button mat-raised-button color="primary" type="submit" class="btn-submit">
+        <mat-icon class="btn-icon">{{ data ? 'save' : 'add_circle' }}</mat-icon>
+        {{ data ? "Update" : "Save" }}
+      </button>
+    </div>
+  </form>
+</div>
